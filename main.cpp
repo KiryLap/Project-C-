@@ -19,16 +19,16 @@ int main() {
         cout << "-----------------------------" << endl;
         switch (choice) {
             case 1:
-                functions1();
+                fun1();
                 break;
             case 2:
-                functions2();
+                fun2();
                 break;
             case 3:
-                functions3();
+                fun3();
                 break;
             case 4:
-                functions4();
+                fun4();
                 break;
             case 0:
                 cout << "Выход из программы." << endl;

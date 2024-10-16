@@ -1,8 +1,8 @@
 #include <iostream>
-#include "Dmitry/functions1.h"
-#include "Edward/functions2.h"
-#include "Maxim/functions3.h"
-#include "Zakhar/functions4.h"
+#include "Cheremshanov/functions1_by_Cheremshanov.h"
+#include "Muratov/functions2_by_Muratov.h"
+#include "Fomenko/functions3_by_Fomenko.h"
+#include "Sannikov/functions4_by_Sannikov.h"
 
 int main() {
     int choice;

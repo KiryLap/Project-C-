@@ -3,7 +3,7 @@
 using namespace std;
 
 template <typename T>
-T readPositive(const string &prompt, const string &errorMessage, const T maxValue) {
+T read_positive(const string &prompt, const string &errorMessage, const T maxValue) {
     T value;
     while (true) {
         cout << prompt;
@@ -40,7 +40,7 @@ template int readPositive<int>(const string &prompt, const string &errorMessage,
  * efficiency = readPositive<double>("Введите эффективность в % (1-100): ","Ошибка! Эффективность должна быть неотрицательным числом и меньше 100. Попробуйте снова.",101 );
  */
 
-long numberOrDefault(const std::string &input, long defaultValue, size_t minLength) {
+long number_or_default(const std::string &input, long defaultValue, size_t minLength) {
     if (input.length() < minLength || 
         input.empty() || 
         std::find_if(input.begin(), input.end(), [](unsigned char c) { return !isdigit(c); }) != input.end()) {
@@ -61,7 +61,7 @@ long numberOrDefault(const std::string &input, long defaultValue, size_t minLeng
  * @return: Преобразованное целое число типа long или defaultValue при ошибке.
  */
 
-int inputIntInRange(const string &prompt, int minValue, int maxValue) {
+int input_int_in_range(const string &prompt, int minValue, int maxValue) {
     int value;
 
     while (true) {

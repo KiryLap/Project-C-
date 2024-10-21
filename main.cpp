@@ -4,6 +4,7 @@
 #include "Fomenko/functions3_by_Fomenko.h"
 #include "Sannikov/functions4_by_Sannikov.h"
 
+// Шаблонная функция для измерения времени выполнения другой функции
 template <typename Func>
 void measure_time(Func function, const string& text, const string& pattern) {
     auto start = chrono::high_resolution_clock::now();
@@ -90,7 +91,7 @@ int main() {
         cout << "| 5. Запуск всех функций    |" << endl;
         cout << "| 0. Выход                  |" << endl;
         cout << "-----------------------------" << endl;
-        choice = inputIntInRange("Выберете действие: ", 0, 4);
+        choice = input_int_in_range("Выберете действие: ", 0, 4);
         cout << "-----------------------------" << endl;
         switch (choice) {
             case 1:

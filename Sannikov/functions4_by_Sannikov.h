@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS4_H
-#define FUNCTIONS4_H
+#ifndef FUNCTIONS4_BY_SANNIKOV_H
+#define FUNCTIONS4_BY_SANNIKOV_H
 
 #include <string>
 #include <vector>

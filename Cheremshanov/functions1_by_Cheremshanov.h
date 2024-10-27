@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS1_H
-#define FUNCTIONS1_H
+#ifndef FUNCTIONS1_BY_CHEREMSHANOV_H
+#define FUNCTIONS1_BY_CHEREMSHANOV_H
 
 //Если нужно прописать дополнительные include, то их пишем здесь
 // Пример: #include <iostream>

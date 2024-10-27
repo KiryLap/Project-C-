@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS2_H
-#define FUNCTIONS2_H
+#ifndef FUNCTIONS2_BY_MURATOV_H
+#define FUNCTIONS2_BY_MURATOV_H
 
 //Если нужно прописать дополнительные include, то их пишем здесь
 // Пример: #include <iostream>

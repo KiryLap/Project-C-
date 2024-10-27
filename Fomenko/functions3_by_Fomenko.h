@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS3_H
-#define FUNCTIONS3_H
+#ifndef FUNCTIONS3_BY_FOMENKO_H
+#define FUNCTIONS3_BY_FOMENKO_H
 
 //Если нужно прописать дополнительные include, то их пишем здесь
 // Пример: #include <iostream>

@@ -1,10 +1,11 @@
 #ifndef FUNCTIONS2_BY_MURATOV_H
 #define FUNCTIONS2_BY_MURATOV_H
 
-//Если нужно прописать дополнительные include, то их пишем здесь
-// Пример: #include <iostream>
+#include <string>
+#include <vector>
 
-//Здесь прописываешь названия функций с передаваемыми переменными и т.д
-// Пример: int fun2(int a, int b);
+using namespace std;
 
-#endif 
+vector<int> function_by_Muratov(const string& text, const string& pattern);
+
+#endif // FUNCTIONS2_BY_MURATOV_H

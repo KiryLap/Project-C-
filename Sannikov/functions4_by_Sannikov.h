@@ -6,14 +6,12 @@
 #include <unordered_map>
 #include <iostream>
 
-class BoyerMoore {
-public:
-    void BoyerMoore(const string& text, const string& pattern);
+using namespace std;
 
-private:
-    std::unordered_map<char, int> last_occurrence;
-    std::vector<int> jump_table;
-    std::string pattern;
-};
+void function_by_Sannikov(const string& text, const string& pattern);
 
-#endif 
+extern vector<int> last_occurrence;
+extern vector<int> jump_table;
+extern string pattern;
+
+#endif // FUNCTIONS4_BY_SANNIKOV_H

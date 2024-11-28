@@ -16,7 +16,6 @@ T read_positive(const string &prompt, const string &error_message, const T max_v
             cout << error_message << endl;
         } else {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            log("Введено значение: " + to_string(value));
             return value;
         }
     }

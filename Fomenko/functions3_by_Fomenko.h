@@ -3,8 +3,24 @@
 
 //Если нужно прописать дополнительные include, то их пишем здесь
 // Пример: #include <iostream>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
 
 //Здесь прописываешь названия функций с передаваемыми переменными и т.д
 // Пример: int fun3(int a, int b);
+// Структура для представления состояния автомата
+struct State {
+    int id;
+    bool is_final;
+    unordered_map<char, int> transitions; // Переходы по символам
+
+    State(int id, bool is_final) : id(id), is_final(is_final) {}
+};
+
+vector<State> create_automaton(const string& pattern);
+
+vector<pair<int, int>> find_all_occurrences(const vector<string>& texts, const string& pattern);
 
 #endif 

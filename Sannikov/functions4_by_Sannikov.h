@@ -8,8 +8,7 @@
 
 class BoyerMoore {
 public:
-    BoyerMoore(const std::string& pattern);
-    int search(const std::string& text);
+    void BoyerMoore(const string& text, const string& pattern);
 
 private:
     std::unordered_map<char, int> last_occurrence;

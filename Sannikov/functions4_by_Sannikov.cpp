@@ -2,10 +2,12 @@
 
 using namespace std;
 
-int BoyerMoore(const string& text, const string& pattern) {
+void BoyerMoore(const string& text, const string& pattern) {
     int n = text.length();
     int m = pattern.length();
-    if (m == 0) return 0; // Пустой паттерн - всегда найдено в начале
+    if (m == 0) {
+        cout << "Пустой паттерн";
+        return; // Пустой паттерн - всегда найдено в начале
 
     unordered_map<char, int> last_occurrence;
     for (int i = 0; i < m; ++i) {

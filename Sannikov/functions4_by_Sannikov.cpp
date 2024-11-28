@@ -8,6 +8,7 @@ void BoyerMoore(const string& text, const string& pattern) {
     if (m == 0) {
         cout << "Пустой паттерн";
         return; // Пустой паттерн - всегда найдено в начале
+    }
 
     unordered_map<char, int> last_occurrence;
     for (int i = 0; i < m; ++i) {

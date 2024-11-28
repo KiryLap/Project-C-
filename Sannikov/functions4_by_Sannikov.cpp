@@ -1,44 +1,44 @@
 #include "functions4_by_Sannikov.h"
-#include "Verification/utils.h"
 
 using namespace std;
 
-BoyerMoore::BoyerMoore(const std::string& pattern) : pattern(pattern) {
-    // Инициализация таблицы последнего появления
-    for (size_t i = 0; i < pattern.size(); ++i) {
+int BoyerMoore(const string& text, const string& pattern) {
+    int n = text.length();
+    int m = pattern.length();
+    if (m == 0) return 0; // Пустой паттерн - всегда найдено в начале
+
+    unordered_map<char, int> last_occurrence;
+    for (int i = 0; i < m; ++i) {
         last_occurrence[pattern[i]] = i;
     }
 
-    // Инициализация таблицы переходов
-    jump_table.resize(256, pattern.size());
-    for (size_t i = 0; i < pattern.size() - 1; ++i) {
-        jump_table[(unsigned char)pattern[i]] = pattern.size() - i - 1;
+    vector<int> jump_table(256, m); // Все символы имеют начальное смещение m
+    for (int i = 0; i < m - 1; ++i) {
+        jump_table[(unsigned char)pattern[i]] = m - 1 - i;
     }
-}
 
-int BoyerMoore::search(const std::string& text) {
-    int j = 0;
-    for (size_t i = pattern.size() - 1; i < text.size(); ) {
+    int i = m - 1; // Индекс в тексте
+    int j = m - 1; // Индекс в паттерне
+
+    while (i < n) {
         if (text[i] == pattern[j]) {
             if (j == 0) {
-                return i - pattern.size() + 1;
+                cout << "Совпадение найдено на позиции: " << i << " в тексте." << endl;
+                return; // Совпадение найдено
             }
-            --j;
-            --i;
+            i--;
+            j--;
         }
         else {
-            // Используем таблицу переходов
             int jump = jump_table[(unsigned char)text[i]];
-            // Используем таблицу последнего появления
             if (last_occurrence.count(text[i])) {
                 int last_index = last_occurrence[text[i]];
-                if (last_index < jump) {
-                    jump = last_index;
-                }
+                jump = std::max(jump, j - last_index);
             }
-            i += jump;
-            j = pattern.size() - 1;
+            i += jump + 1; // +1 потому что i уже уменьшен на 1
+            j = m - 1;
         }
     }
-    return -1;
+    cout << "Совпадений не найдено." << endl;
+    return; // Совпадение не найдено
 }

@@ -6,6 +6,6 @@
 
 using namespace std;
 
-vector<int> function_by_Muratov(const string& text, const string& pattern);
+void function_by_Muratov(const string& text, const string& pattern);
 
 #endif // FUNCTIONS2_BY_MURATOV_H

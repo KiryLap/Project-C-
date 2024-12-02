@@ -5,7 +5,6 @@
 #include "Muratov/functions2_by_Muratov.h"
 #include "Fomenko/functions3_by_Fomenko.h"
 #include "Sannikov/functions4_by_Sannikov.h"
-#include "Verification/utils.h"
 #include <chrono>
 
 void setupLocale() {
@@ -24,23 +23,54 @@ void measure_time(Func function, const string& text, const string& pattern) {
 void run(void(*test_function)(const string&, const string&)) {
     // Список тестов, каждый тест представлен парой строк
     vector<pair<string, string>> tests = {
-        { "шаблон" + string(1000000, 'a'), "шаблон" }, // Тест 1
-        { string(1000000, 'a') + "шаблон", "шаблон" }, // Тест 2
-        { "шаблон" + string(5000, 'a') + "шаблон" + string(5000, 'b') + "шаблон", "шаблон" }, // Тест 3
-        { string(20000, 'x'), "шаблон" }, // Тест 4
-        { "шаблон", "шаблон" }, // Тест 5
-        { "", "шаблон" }, // Тест 6
+        // Длинный текст, где шаблон находится в начале
+        { "pattern" + string(1000000, 'a'), "pattern" }, // Тест 1
+
+        // Длинный текст, где шаблон находится в конце
+        { string(1000000, 'a') + "pattern", "pattern" }, // Тест 2
+
+        // Шаблон с множеством повторений в длинном тексте
+        { "pattern" + string(5000, 'a') + "pattern" + string(5000, 'b') + "pattern", "pattern" }, // Тест 3
+
+        // Длинный текст без шаблона
+        { string(20000, 'x'), "pattern" }, // Тест 4
+
+        // Шаблон равен тексту
+        { "pattern", "pattern" }, // Тест 5
+
+        // Пустой текст
+        { "", "pattern" }, // Тест 6
+
+        // Пустой шаблон (не должен находить совпадений)
         { "Текст.", "" }, // Тест 7
+
+        // Текст с разными символами, шаблон в середине
         { "aaaaabbbbcccccdddddeeeee", "bb" }, // Тест 8
-        { string(10000, 'a') + "шаблон" + string(10000, 'a'), "шаблон" }, // Тест 9
-        { "Тек", string(10000, 'a') } // Тест 10
+
+        // Шаблон расположен в середине большого количества одинаковых символов
+        { string(10000, 'a') + "pattern" + string(10000, 'a'), "pattern" }, // Тест 9
+
+        // Шаблон отсутствует в длинном тексте
+        { "Тек", string(10000, 'a') }, // Тест 10
+        
+        // Небольшой текст с многими повторами, где особенность Рабина-Карпа будет полезна
+        { "aaaaaaaabaaaabaaaaaaa", "ab" }, // Тест 11
+
+        // Сложный случай, где лучше работает Бойер-Мурным
+        { "the quick brown fox jumps over the lazy dog", "fox" }, // Тест 12
+
+        // Длинный текст с многоразовыми символами для теста на эффективность
+        { string(50000, 'a') + "pattern" + string(50000, 'a'), "pattern" }, // Тест 13
+
+        // Шаблон с уникальными символами и текст
+        { "abcdefgabcdefgabcdefg", "cde" }, // Тест 14
     };
 
     // Проход по всем тестам и выполнение их
     for (size_t i = 0; i < tests.size(); ++i) {
         const string& text = tests[i].first;
         const string& pattern = tests[i].second;
-        cout << "Тест " << (i + 1) << ": ";
+        cout << "\n" << "Тест " << (i + 1) << ": ";
         measure_time(test_function, text, pattern);
     }
 }
@@ -62,38 +92,26 @@ int main() {
         cout << "-----------------------------" << endl;
         switch (choice) {
             case 1:
-<<<<<<< HEAD
+                run(function_by_Cheremshanov); 
                 break;
             case 2:
+                run(function_by_Muratov);      
                 break;
             case 3:
-                run(find_all_occurrences_wrapper);
+                run(function_by_Fomenko); 
                 break;
             case 4:
+                run(function_by_Sannikov);
                 break;
             case 5:
-=======
-                run(functions1_by_Cheremshanov); 
-                break;
-            case 2:
-                run(functions2_by_Muratov);      
-                break;
-            case 3:
-                run(functions_by_Fomenko); 
-                break;
-            case 4:
-                run(functions4_by_Sannikov);
-                break;
-            case 5:
-                cout << "1. Алгоритм Ахо-Корасик" << endl;
-                run(functions1_by_Cheremshanov); 
-                cout << "2. Алгоритм  Рабина-Карпа" << endl;
-                run(functions2_by_Muratov);
-                cout << "3. Поиск с конечным автоматом" << endl;  
-                run(functions_by_Fomenko);
-                cout << "4. Алгоритм Бойера-Мура" << endl;
-                run(functions4_by_Sannikov);
->>>>>>> bc510669b60da8a43b87930b2c478abbb5517c16
+                cout << "\n" << "---------------------------------" << "\n" <<  "1. Алгоритм Ахо-Корасик" << "\n" << "---------------------------------" << endl;
+                run(function_by_Cheremshanov); 
+                cout << "\n" << "---------------------------------" << "\n" <<  "2. Алгоритм  Рабина-Карпа" << "\n" << "---------------------------------" << endl;
+                run(function_by_Muratov);
+                cout << "\n" <<"---------------------------------" << "\n" << "3. Поиск с конечным автоматом" << "\n" << "---------------------------------" << endl;
+                run(function_by_Fomenko);
+                cout << "\n" << "---------------------------------" << "\n" << "4. Алгоритм Бойера-Мура" << "\n" << "---------------------------------" << endl;
+                run(function_by_Sannikov);
                 break;
             case 0:
                 cout << "Выход из программы." << endl;

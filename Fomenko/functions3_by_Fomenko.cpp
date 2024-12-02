@@ -69,7 +69,15 @@ vector<pair<int, int>> find_all_occurrences(const vector<string>& texts, const s
     return occurrences;
 }
 
-void find_all_occurrences_wrapper(const string& text, const string& pattern) {
+void function_by_Fomenko(const string& text, const string& pattern) {
     vector<string> texts = {text}; 
-    vector<pair<int, int>> occurrences = find_all_occurrences(texts, pattern); 
+    vector<pair<int, int>> occurrences = find_all_occurrences(texts, pattern);
+
+    if (occurrences.empty()) {
+        cout << "Совпадений не найдено." << endl;
+    } else {
+        for (const auto& occurrence : occurrences) {
+            cout << "Совпадение найдено на позиции: " << occurrence.second << endl;
+        }
+    }
 }

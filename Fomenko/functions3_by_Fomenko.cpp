@@ -1,12 +1,11 @@
 #include "functions3_by_Fomenko.h"
-#include "Verification/utils.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
 
 using namespace std;
 
-// Здесь прописываем, что будет выполнять функция, которая объявлена в .h
-// Пример: int fun3(int a, int b) {
-            //return a + b;
-        //}
 // Функция для создания конечного автомата
 vector<State> create_automaton(const string& pattern) {
     vector<State> automaton;
@@ -70,16 +69,15 @@ vector<pair<int, int>> find_all_occurrences(const vector<string>& texts, const s
     return occurrences;
 }
 
-int main() {
-    vector<string> texts = {"hello world", "the quick brown fox", "pattern matching"};
-    string pattern = "fox";
-
+void function_by_Fomenko(const string& text, const string& pattern) {
+    vector<string> texts = {text}; 
     vector<pair<int, int>> occurrences = find_all_occurrences(texts, pattern);
 
-    cout << "Индексы текстов, в которых найдена подстрока, и их позиции: " << endl;
-    for (auto occurrence : occurrences) {
-        cout << "Текст " << occurrence.first << ": позиция " << occurrence.second << endl;
+    if (occurrences.empty()) {
+        cout << "Совпадений не найдено." << endl;
+    } else {
+        for (const auto& occurrence : occurrences) {
+            cout << "Совпадение найдено на позиции: " << occurrence.second << endl;
+        }
     }
-
-    return 0;
 }

@@ -5,6 +5,8 @@
 #include "Muratov/functions2_by_Muratov.h"
 #include "Fomenko/functions3_by_Fomenko.h"
 #include "Sannikov/functions4_by_Sannikov.h"
+#include "Verification/utils.h"
+#include <chrono>
 
 void setupLocale() {
     setlocale(LC_ALL, "ru_RU.UTF-8");
@@ -60,6 +62,17 @@ int main() {
         cout << "-----------------------------" << endl;
         switch (choice) {
             case 1:
+<<<<<<< HEAD
+                break;
+            case 2:
+                break;
+            case 3:
+                run(find_all_occurrences_wrapper);
+                break;
+            case 4:
+                break;
+            case 5:
+=======
                 run(functions1_by_Cheremshanov); 
                 break;
             case 2:
@@ -80,6 +93,7 @@ int main() {
                 run(functions_by_Fomenko);
                 cout << "4. Алгоритм Бойера-Мура" << endl;
                 run(functions4_by_Sannikov);
+>>>>>>> bc510669b60da8a43b87930b2c478abbb5517c16
                 break;
             case 0:
                 cout << "Выход из программы." << endl;

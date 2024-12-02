@@ -1,5 +1,8 @@
 #include "functions3_by_Fomenko.h"
-#include "Verification/utils.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
 
 using namespace std;
 
@@ -66,16 +69,7 @@ vector<pair<int, int>> find_all_occurrences(const vector<string>& texts, const s
     return occurrences;
 }
 
-int main() {
-    vector<string> texts = {"hello world", "the quick brown fox", "pattern matching"};
-    string pattern = "fox";
-
-    vector<pair<int, int>> occurrences = find_all_occurrences(texts, pattern);
-
-    cout << "Индексы текстов, в которых найдена подстрока, и их позиции: " << endl;
-    for (auto occurrence : occurrences) {
-        cout << "Текст " << occurrence.first << ": позиция " << occurrence.second << endl;
-    }
-
-    return 0;
+void find_all_occurrences_wrapper(const string& text, const string& pattern) {
+    vector<string> texts = {text}; 
+    vector<pair<int, int>> occurrences = find_all_occurrences(texts, pattern); 
 }

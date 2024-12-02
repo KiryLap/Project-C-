@@ -3,6 +3,8 @@
 #include "Muratov/functions2_by_Muratov.h"
 #include "Fomenko/functions3_by_Fomenko.h"
 #include "Sannikov/functions4_by_Sannikov.h"
+#include "Verification/utils.h"
+#include <chrono>
 
 // Шаблонная функция для измерения времени выполнения другой функции
 template <typename Func>
@@ -95,22 +97,15 @@ int main() {
         cout << "-----------------------------" << endl;
         switch (choice) {
             case 1:
-                run(fun1);
                 break;
             case 2:
-                run(fun2);
                 break;
             case 3:
-                run(fun3);
+                run(find_all_occurrences_wrapper);
                 break;
             case 4:
-                run(fun4);
                 break;
             case 5:
-                run(fun1);
-                run(fun2);
-                run(fun3);
-                run(fun4);
                 break;
             case 0:
                 cout << "Выход из программы." << endl;

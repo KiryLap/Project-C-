@@ -19,4 +19,6 @@ vector<State> create_automaton(const string& pattern);
 
 vector<pair<int, int>> find_all_occurrences(const vector<string>& texts, const string& pattern);
 
+void find_all_occurrences_wrapper(const string& text, const string& pattern);
+
 #endif 

@@ -3,10 +3,6 @@
 
 using namespace std;
 
-// Здесь прописываем, что будет выполнять функция, которая объявлена в .h
-// Пример: int fun3(int a, int b) {
-            //return a + b;
-        //}
 // Функция для создания конечного автомата
 vector<State> create_automaton(const string& pattern) {
     vector<State> automaton;

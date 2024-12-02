@@ -1,15 +1,11 @@
 #ifndef FUNCTIONS3_BY_FOMENKO_H
 #define FUNCTIONS3_BY_FOMENKO_H
 
-//Если нужно прописать дополнительные include, то их пишем здесь
-// Пример: #include <iostream>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <unordered_map>
 
-//Здесь прописываешь названия функций с передаваемыми переменными и т.д
-// Пример: int fun3(int a, int b);
 // Структура для представления состояния автомата
 struct State {
     int id;

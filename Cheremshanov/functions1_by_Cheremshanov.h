@@ -1,10 +1,33 @@
 #ifndef FUNCTIONS1_BY_CHEREMSHANOV_H
 #define FUNCTIONS1_BY_CHEREMSHANOV_H
 
-//Если нужно прописать дополнительные include, то их пишем здесь
-// Пример: #include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <queue>
+#include <iostream>
 
-//Здесь прописываешь названия функций с передаваемыми переменными и т.д
-// Пример: int fun1(int a, int b);
+using namespace std;
 
-#endif 
+class AhoCorasick {
+private:
+    struct Node {
+        unordered_map<char, Node*> children;
+        Node* failLink;
+        vector<int> output; 
+    };
+
+    Node* root;
+    vector<string> patterns; 
+
+    void buildFailLinks();
+
+public:
+    AhoCorasick(const vector<string>& patterns);
+
+    void search(const string& text);
+};
+
+void function_by_Cheremshanov(const string& text, const string& pattern);
+
+#endif

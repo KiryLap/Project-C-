@@ -13,6 +13,11 @@ void function_by_Muratov(const string& text, const string& pattern) {
         return; // Если шаблон длиннее текста, совпадений нет
     }
 
+    if (pattern_len == 0) {
+        cout << "Совпадений не может быть." << endl;
+        return; // если нулевой шаблон
+    }
+
     // Вычисляем хеш шаблона и первого окна текста
     long long pattern_hash = 0, current_hash = 0, basePower = 1;
 

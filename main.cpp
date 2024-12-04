@@ -5,65 +5,71 @@
 #include "Muratov/functions2_by_Muratov.h"
 #include "Fomenko/functions3_by_Fomenko.h"
 #include "Sannikov/functions4_by_Sannikov.h"
-#include <chrono>
+#include <vector>
+#include <utility>
+#include <string>
+#include <functional>
+
 
 void setupLocale() {
     setlocale(LC_ALL, "ru_RU.UTF-8");
 }
 
-template <typename Func>
-void measure_time(Func function, const string& text, const string& pattern) {
+void measure_time(const function<vector<int>(const string&, const string&)>& func, const string& text, const string& pattern) {
     auto start = chrono::high_resolution_clock::now();
-    function(text, pattern);
+    vector<int> result = func(text, pattern);
     auto end = chrono::high_resolution_clock::now();
-    chrono::duration<double> duration = end - start;
-    cout << "Время выполнения: " << duration.count() << " сек." << endl;
+    
+    chrono::duration<double, milli> duration = end - start;
+
+    if (result.empty()) {
+        cout << "Совпадений не найдено.";
+    } else {
+        cout << "Найдено совпадений на позициях: ";
+        for (int index : result) {
+            cout << index << " ";
+        }
+    }
+    cout << "\nВремя выполнения: " << duration.count() << " мс\n";
 }
 
-void run(void(*test_function)(const string&, const string&)) {
-    // Список тестов, каждый тест представлен парой строк
+void run(const function<vector<int>(const string&, const string&)>& test_function) {
     vector<pair<string, string>> tests = {
-        // Длинный текст, где шаблон находится в начале
-        { "pattern" + string(1000000, 'a'), "pattern" }, // Тест 1
+        // Длинный текст, где паттерны находятся в начале
+        { "pattern1" + string(1000000, 'a') + "pattern2" + string(1000000, 'b') + "pattern3", "pattern1" }, // Тест 1
 
-        // Длинный текст, где шаблон находится в конце
-        { string(1000000, 'a') + "pattern", "pattern" }, // Тест 2
+        // Длинный текст, где паттерны находятся в конце
+        { string(1000000, 'a') + "pattern1" + string(1000000, 'b') + "pattern2" + "pattern3", "pattern3" }, // Тест 2
 
-        // Шаблон с множеством повторений в длинном тексте
-        { "pattern" + string(5000, 'a') + "pattern" + string(5000, 'b') + "pattern", "pattern" }, // Тест 3
+        // Паттерны с множеством повторений в длинном тексте
+        { "pattern1" + string(5000, 'a') + "pattern2" + string(5000, 'b') + "pattern3", "pattern2" }, // Тест 3
 
-        // Длинный текст без шаблона
-        { string(20000, 'x'), "pattern" }, // Тест 4
+        // Длинный текст без паттернов
+        { string(20000, 'x') + "pattern1" + "pattern2" + "pattern3", "pattern1" }, // Тест 4
 
-        // Шаблон равен тексту
-        { "pattern", "pattern" }, // Тест 5
+        // Паттерны равны тексту
+        { "pattern1pattern2pattern3", "pattern3" }, // Тест 5
 
-        // Пустой текст
-        { "", "pattern" }, // Тест 6
+        // Текст с разными символами, паттерн в середине
+        { "aaaaabbbbcccccdddddeeeeepatterbbn1pattern2", "bb" }, // Тест 6
 
-        // Пустой шаблон (не должен находить совпадений)
-        { "Текст.", "" }, // Тест 7
+        // Паттерн расположен в середине большого количества одинаковых символов
+        { string(10000, 'a') + "pattern1pattern2" + string(10000, 'a'), "pattern1" }, // Тест 7
 
-        // Текст с разными символами, шаблон в середине
-        { "aaaaabbbbcccccdddddeeeee", "bb" }, // Тест 8
+        // Паттерны отсутствуют в длинном тексте
+        { "Тек", "pattern1" }, // Тест 8
 
-        // Шаблон расположен в середине большого количества одинаковых символов
-        { string(10000, 'a') + "pattern" + string(10000, 'a'), "pattern" }, // Тест 9
-
-        // Шаблон отсутствует в длинном тексте
-        { "Тек", string(10000, 'a') }, // Тест 10
-        
         // Небольшой текст с многими повторами, где особенность Рабина-Карпа будет полезна
-        { "aaaaaaaabaaaabaaaaaaa", "ab" }, // Тест 11
+        { "aaaaaaaabaaaabaaaaaaapattern1", "ab" }, // Тест 9
 
-        // Сложный случай, где лучше работает Бойер-Мурным
-        { "the quick brown fox jumps over the lazy dog", "fox" }, // Тест 12
+        // Сложный случай, где лучше работает Бойер-Мур
+        { "the quick brown fox jumps over the lazy pattern1 dog and pattern2", "fox" }, // Тест 10
 
         // Длинный текст с многоразовыми символами для теста на эффективность
-        { string(50000, 'a') + "pattern" + string(50000, 'a'), "pattern" }, // Тест 13
+        { "pattern2" + string(50000, 'a') + "pattern1" + "pattern2" + string(50000, 'b'), "pattern2" }, // Тест 11
 
-        // Шаблон с уникальными символами и текст
-        { "abcdefgabcdefgabcdefg", "cde" }, // Тест 14
+        // Паттерн с уникальными символами и текст
+        { "abcdefgabcdefgabcdefgpattern1pattern2", "cde" }, // Тест 12
     };
 
     // Проход по всем тестам и выполнение их

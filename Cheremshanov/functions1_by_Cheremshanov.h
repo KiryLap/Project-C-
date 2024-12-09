@@ -10,24 +10,25 @@
 using namespace std;
 
 class AhoCorasick {
-private:
+public:
     struct Node {
         unordered_map<char, Node*> children;
         Node* failLink;
-        vector<int> output; 
+        vector<int> output;
+
+        Node() : failLink(nullptr) {}
     };
 
+    AhoCorasick(const vector<string>& patterns);
+    void search(const string& text, vector<int>& result_indices);
+
+private:
+    vector<string> patterns;
     Node* root;
-    vector<string> patterns; 
 
     void buildFailLinks();
-
-public:
-    AhoCorasick(const vector<string>& patterns);
-
-    void search(const string& text);
 };
 
-void function_by_Cheremshanov(const string& text, const string& pattern);
+vector<int> function_by_Cheremshanov(const string& text, const string& pattern);
 
 #endif

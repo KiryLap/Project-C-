@@ -1,4 +1,8 @@
 #include "functions1_by_Cheremshanov.h"
+#include <vector>
+#include <queue>
+#include <unordered_map>
+#include <string>
 
 using namespace std;
 
@@ -53,14 +57,12 @@ void AhoCorasick::buildFailLinks() {
     }
 }
 
-void AhoCorasick::search(const string& text) {
+void AhoCorasick::search(const string& text, vector<int>& result_indices) {
     if (patterns.empty() || patterns[0].empty()) {
-        cout << "Совпадений не найдено." << endl;
-        return;
+        return; // Просто ничего не делаем, если паттерн пуст
     }
 
     Node* currentNode = root;
-    bool foundMatch = false;  
 
     for (int i = 0; i < text.length(); ++i) {
         while (currentNode != root && !currentNode->children.count(text[i])) {
@@ -73,19 +75,15 @@ void AhoCorasick::search(const string& text) {
         }
 
         for (int patternIndex : currentNode->output) {
-            foundMatch = true;  
-            cout << "Совпадение найдено на позиции: " << (i - patterns[patternIndex].length() + 1) << endl;
-            return; 
+            result_indices.push_back(i - patterns[patternIndex].length() + 1); // Сохраняем индекс совпадения
         }
-    }
-
-    if (!foundMatch) {
-        cout << "Совпадений не найдено." << endl;
     }
 }
 
-void function_by_Cheremshanov(const string& text, const string& pattern) {
+vector<int> function_by_Cheremshanov(const string& text, const string& pattern) {
     vector<string> patterns = { pattern }; 
     AhoCorasick ac(patterns);
-    ac.search(text);
+    vector<int> result_indices;
+    ac.search(text, result_indices); // Параметр для сохранения индексов совпадений
+    return result_indices; // Возвращаем результат
 }

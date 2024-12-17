@@ -5,14 +5,16 @@
 
 using namespace std;
 
-void function_by_Sannikov(const string& text, const string& pattern) {
+vector<int> function_by_Sannikov(const string& text, const string& pattern) {
     int n = text.length();
     int m = pattern.length();
 
+    vector<int> result_indices; // Вектор для хранения индексов найденных совпадений
+
     // Проверка на пустой паттерн
     if (m == 0) {
-        cout << "Пустой паттерн. Совпадение найдено на позиции: 0 в тексте." << endl;
-        return; // Пустой паттерн - считается найденным в начале
+        result_indices.push_back(0); // Пустой паттерн - считается найденным в начале
+        return result_indices;
     }
 
     unordered_map<char, int> last_occurrence; // Локальная переменная
@@ -30,14 +32,15 @@ void function_by_Sannikov(const string& text, const string& pattern) {
 
     while (i < n) {
         if (text[i] == pattern[j]) {
-            if (j == 0) {
-                cout << "Совпадение найдено на позиции: " << (i) << " в тексте." << endl;
-                return; // Совпадение найдено
+            if (j == 0) { // Совпадение найдено
+                result_indices.push_back(i); // Сохраняем индекс
+                i += m; // Сдвигаем индекс i, чтобы продолжить искать после найденного паттерна
+                j = m - 1; // Сбрасываем j на последний символ паттерна
+            } else {
+                i--;
+                j--;
             }
-            i--;
-            j--;
-        }
-        else {
+        } else {
             int jump = jump_table[(unsigned char)text[i]]; // Расчёт смещения
             if (last_occurrence.count(text[i])) {
                 int last_index = last_occurrence[text[i]];
@@ -47,5 +50,6 @@ void function_by_Sannikov(const string& text, const string& pattern) {
             j = m - 1; // Сброс j на последний символ паттерна
         }
     }
-    cout << "Совпадений не найдено." << endl; // Если не нашли совпадения
+
+    return result_indices; // Возвращаем список индексов совпадений
 }

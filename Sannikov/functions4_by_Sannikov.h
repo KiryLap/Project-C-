@@ -8,10 +8,6 @@
 
 using namespace std;
 
-void function_by_Sannikov(const string& text, const string& pattern);
-
-extern vector<int> last_occurrence;
-extern vector<int> jump_table;
-extern string pattern;
+vector<int> function_by_Sannikov(const string& text, const string& pattern);
 
 #endif // FUNCTIONS4_BY_SANNIKOV_H

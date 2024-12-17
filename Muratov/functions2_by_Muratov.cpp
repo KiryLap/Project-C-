@@ -1,9 +1,8 @@
 #include "functions2_by_Muratov.h"
-#include "Verification/utils.h"
 
 using namespace std;
 
-void function_by_Muratov(const string& text, string& pattern) {
+void function_by_Muratov(const string& text, const string& pattern) {
     const int BASE = 31;        // Основание для хеш-функции
     const int MOD = 1e9 + 7;    // Большое простое число для модуля
     int text_len = text.length();
@@ -12,6 +11,11 @@ void function_by_Muratov(const string& text, string& pattern) {
     if (pattern_len > text_len) {
         cout << "Шаблон длиннее текста." << endl;
         return; // Если шаблон длиннее текста, совпадений нет
+    }
+
+    if (pattern_len == 0) {
+        cout << "Совпадений не может быть." << endl;
+        return; // если нулевой шаблон
     }
 
     // Вычисляем хеш шаблона и первого окна текста

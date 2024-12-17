@@ -61,7 +61,6 @@ vector<pair<int, int>> find_all_occurrences(const vector<string>& texts, const s
             // Если текущее состояние является финальным, значит мы нашли совпадение
             if (automaton[state].is_final) {
                 occurrences.push_back(make_pair(text_index, i - pattern.length() + 1));
-                break;
             }
         }
     }
@@ -69,15 +68,18 @@ vector<pair<int, int>> find_all_occurrences(const vector<string>& texts, const s
     return occurrences;
 }
 
-void function_by_Fomenko(const string& text, const string& pattern) {
+vector<int> function_by_Fomenko(const string& text, const string& pattern) {
     vector<string> texts = {text}; 
     vector<pair<int, int>> occurrences = find_all_occurrences(texts, pattern);
 
+    vector<int> result_indices;
     if (occurrences.empty()) {
-        cout << "Совпадений не найдено." << endl;
+        return result_indices; // Если совпадений не найдено, возвращаем пустой вектор
     } else {
         for (const auto& occurrence : occurrences) {
-            cout << "Совпадение найдено на позиции: " << occurrence.second << endl;
+            result_indices.push_back(occurrence.second); // Добавляем индексы совпадений в результат
         }
     }
+
+    return result_indices; // Возвращаем список индексов совпадений
 }

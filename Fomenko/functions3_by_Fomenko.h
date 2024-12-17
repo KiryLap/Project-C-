@@ -21,6 +21,6 @@ vector<State> create_automaton(const string& pattern);
 
 vector<pair<int, int>> find_all_occurrences(const vector<string>& texts, const string& pattern);
 
-void function_by_Fomenko(const string& text, const string& pattern);
+vector<int> function_by_Fomenko(const string& text, const string& pattern);
 
 #endif 
